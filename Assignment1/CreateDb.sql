@@ -20,4 +20,3 @@ delivery_id SERIAL PRIMARY KEY
 ,delivery_date DATE
 ,STATUS TEXT
 );
-
