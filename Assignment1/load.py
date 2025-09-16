@@ -45,10 +45,13 @@ def create_tables():
     print("Tables created.")
 
 
-##Add a new customer supplying name, email, phone, and address RETURNS new Id
+# Add a new customer supplying name, email, phone, and address RETURNS new Id
 def add_customer(name: str, email: str, phone: str, address: str):
     # TODO
-    return 0
+    cursor = db_connect.cursor()
+    new_id = cursor.fetchone()[0]
+    cursor.close()
+    return new_id
 
 
 # Add a new order with attributes including customer ID, order date, total amount, product_ID, product category, and product name. RETURNS order id
@@ -61,7 +64,10 @@ def add_order(
     prod_name: str,
 ):
     # TODO
-    return 0
+    cursor = db_connect.cursor()
+    new_id = cursor.fetchone()[0]
+    cursor.close()
+    return new_id
 
 
 # Add a new delivery with attributes such as order ID, delivery date, and status.
