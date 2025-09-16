@@ -85,7 +85,7 @@ def add_order(
 # Add a new delivery with attributes such as order ID, delivery date, and status.
 def add_delivery(order_id: int, date: str, status: str) -> int:
     cursor = db_connect.cursor()
-    query = f"INSERT INTO deliveries (order_id, delivery_date, status) VALUES ({order_id}, '{date}', '{status}')"
+    query = f"INSERT INTO deliveries (order_id, delivery_date, status) VALUES (%d, %s, %s) RETURNING delivery_id;"
     print(query)
     cursor.execute(query)
     fetched_row = cursor.fetchone()
