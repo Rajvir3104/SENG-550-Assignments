@@ -1,5 +1,6 @@
 import psycopg2
 
+# Constants
 db_connect = psycopg2.connect(
     dbname="postgres", user="postgres", password="postgres", host="localhost", port=5432
 )
@@ -69,8 +70,9 @@ def add_delivery(order_id: int, date: str, status: str):
     query = f"INSERT INTO deliveries (order_id, delivery_date, status) VALUES ({order_id}, '{date}', '{status}')"
     print(query)
     cursor.execute(query)
+    new_id = cursor.fetchone()[0]
     cursor.close()
-    return
+    return new_id
 
 
 # Update the delivery status for an existing delivery, given its delivery ID.
