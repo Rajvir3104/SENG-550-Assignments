@@ -1,2 +1,2 @@
 -- Find all orders made by customer “Alice Johnson”
-SELECT orders.* FROM orders INNER JOIN customers ON orders.customer_id = customers.customer_id WHERE customers.name = "Alice Johnson";
+SELECT name, order_date, total_amount, product_category, product_name FROM orders INNER JOIN customers ON orders.customer_id = customers.customer_id WHERE customers.name = 'Alice Johnson';
