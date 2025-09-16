@@ -44,7 +44,49 @@ def create_tables():
     print("Tables created.")
 
 
-if __name__ == "__main__":
+##Add a new customer supplying name, email, phone, and address RETURNS new Id
+def add_customer(name: str, email: str, phone: str, address: str):
+    # TODO
+    return 0
+
+
+# Add a new order with attributes including customer ID, order date, total amount, product_ID, product category, and product name. RETURNS order id
+def add_order(
+    customer_id: int,
+    date: str,
+    total: float,
+    prod_id: int,
+    prod_category: str,
+    prod_name: str,
+):
+    # TODO
+    return 0
+
+
+# Add a new delivery with attributes such as order ID, delivery date, and status.
+def add_delivery(order_id: int, date: str, status: str):
+    cursor = db_connect.cursor()
+    query = f"INSERT INTO deliveries (order_id, delivery_date, status) VALUES ({order_id}, '{date}', '{status}')"
+    print(query)
+    cursor.execute(query)
+    cursor.close()
+    return
+
+
+# Update the delivery status for an existing delivery, given its delivery ID.
+def update_delivery(id: int, status: str):
+    # cursor
+    cursor = db_connect.cursor()
+    # create query
+    query = f"UPDATE deliveries SET status = '{status}' WHERE delivery_id={id}"
+    print(query)
+    # exec
+    cursor.execute(query)
+    cursor.close()
+    return
+
+
+def part2Code():
     # clear data first
     reset_tables(["deliveries", "orders", "customers"])
 
@@ -73,29 +115,35 @@ if __name__ == "__main__":
         ["order_id", "delivery_date", "status"],
     )
 
+
+def part3Code():
+    print("Part 3 code running...")
+    print("Adding new customer, order, delivery, and updating delivery status...")
+    # add new customer
+    liam_id = add_customer(
+        "Liam Nelson", "liam.nelson@example.com", "555-2468", "111 Elm Street"
+    )
+    print(f"New customer ID: {liam_id}")
+    # add order
+    order_id = add_order(
+        liam_id, "2025-06-01", 180.00, 116, "Electronics", "Bluetooth Speaker"
+    )
+    print(f"New order ID: {order_id}")
+    # add delivery
+    delivery_id = add_delivery(order_id, "2025-06-03", "Pending")
+    print(f"New delivery ID: {delivery_id}")
+    print("Updating delivery status to 'Shipped'...")
+    # update delivery to shipped
+    update_delivery(delivery_id, "Shipped")
+    print("Delivery status updated.")
+
+    # TODO: Add one more customer, order, and delivery with any valid data...
+
+    # update delivery #3
+    update_delivery(3, "Delivered")
+
+
+if __name__ == "__main__":
+    part3Code()
     db_connect.close()
     print("Database connection closed.")
-
-
-##Add a new customer supplying name, email, phone, and address
-def add_customer(name, email, phone, address):
-    # TODO
-    return
-
-
-# Add a new order with attributes including customer ID, order date, total amount, product_ID, product category, and product name.
-def add_order(customer_id, date, total, prod_id, prod_category, prod_name):
-    # TODO
-    return
-
-
-# Add a new delivery with attributes such as order ID, delivery date, and status.
-def add_delivery(id, date, status):
-    # TODO
-    return
-
-
-# Update the delivery status for an existing delivery, given its delivery ID.
-def update_delivery(id):
-    # TODO
-    return
