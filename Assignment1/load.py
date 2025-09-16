@@ -9,7 +9,7 @@ DATA_PATH = "./data/"
 
 
 # for ever csv in data folder
-def load_csv_to_db(file_path, table_name, columns):
+def load_csv_to_db(file_path: str, table_name: str, columns: list) -> None:
     cursor = db_connect.cursor()
     # open the file
     with open(file_path, "r") as f:
@@ -25,7 +25,7 @@ def load_csv_to_db(file_path, table_name, columns):
 
 
 # drop tables and run createDB script to reset foreign key id
-def reset_tables(tables):
+def reset_tables(tables: list):
     cursor = db_connect.cursor()
     # drop tables if they exist
     for table in tables:
@@ -46,10 +46,16 @@ def create_tables():
 
 
 # Add a new customer supplying name, email, phone, and address RETURNS new Id
-def add_customer(name: str, email: str, phone: str, address: str):
+def add_customer(name: str, email: str, phone: str, address: str) -> int:
     # TODO
     cursor = db_connect.cursor()
-    new_id = cursor.fetchone()[0]
+    fetched_row = cursor.fetchone()
+    # if fetched row has no data, return -1
+    if not fetched_row:
+        return -1
+    
+    # else get the first element of the fetched row
+    new_id = int(fetched_row[0])
     cursor.close()
     return new_id
 
@@ -62,27 +68,39 @@ def add_order(
     prod_id: int,
     prod_category: str,
     prod_name: str,
-):
+) -> int:
     # TODO
     cursor = db_connect.cursor()
-    new_id = cursor.fetchone()[0]
+    fetched_row = cursor.fetchone()
+    # if fetched row has no data, return -1
+    if not fetched_row:
+        return -1
+    
+    # else get the first element of the fetched row
+    new_id = int(fetched_row[0])
     cursor.close()
     return new_id
 
 
 # Add a new delivery with attributes such as order ID, delivery date, and status.
-def add_delivery(order_id: int, date: str, status: str):
+def add_delivery(order_id: int, date: str, status: str) -> int:
     cursor = db_connect.cursor()
     query = f"INSERT INTO deliveries (order_id, delivery_date, status) VALUES ({order_id}, '{date}', '{status}')"
     print(query)
     cursor.execute(query)
-    new_id = cursor.fetchone()[0]
+    fetched_row = cursor.fetchone()
+    # if fetched row has no data, return -1
+    if not fetched_row:
+        return -1
+    
+    # else get the first element of the fetched row
+    new_id = int(fetched_row[0])
     cursor.close()
     return new_id
 
 
 # Update the delivery status for an existing delivery, given its delivery ID.
-def update_delivery(id: int, status: str):
+def update_delivery(id: int, status: str) -> None:
     # cursor
     cursor = db_connect.cursor()
     # create query
