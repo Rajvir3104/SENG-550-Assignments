@@ -75,3 +75,27 @@ if __name__ == "__main__":
 
     db_connect.close()
     print("Database connection closed.")
+
+
+##Add a new customer supplying name, email, phone, and address
+def add_customer(name, email, phone, address):
+    # TODO
+    return
+
+
+# Add a new order with attributes including customer ID, order date, total amount, product_ID, product category, and product name.
+def add_order(customer_id, date, total, prod_id, prod_category, prod_name):
+    # TODO
+    return
+
+
+# Add a new delivery with attributes such as order ID, delivery date, and status.
+def add_delivery(id, date, status):
+    # TODO
+    return
+
+
+# Update the delivery status for an existing delivery, given its delivery ID.
+def update_delivery(id):
+    # TODO
+    return
