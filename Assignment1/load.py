@@ -9,7 +9,7 @@ DATA_PATH = "./data/"
 
 
 # for ever csv in data folder
-def load_csv_to_db(file_path: str, table_name: str, columns: list) -> None:
+def load_csv_to_db(file_path:str, table_name:str, columns:list) -> None:
     cursor = db_connect.cursor()
     # open the file
     with open(file_path, "r") as f:
@@ -47,8 +47,11 @@ def create_tables():
 
 # Add a new customer supplying name, email, phone, and address RETURNS new Id
 def add_customer(name: str, email: str, phone: str, address: str) -> int:
-    # TODO
+    
+
     cursor = db_connect.cursor()
+    query = "INSERT INTO customers (name, email, phone, address) VALUES (%s, %s, %s, %s) RETURNING customer_id;"
+    cursor.execute(query, (name,email,phone,address))
     fetched_row = cursor.fetchone()
     # if fetched row has no data, return -1
     if not fetched_row:
@@ -68,16 +71,17 @@ def add_order(
     prod_id: int,
     prod_category: str,
     prod_name: str,
-) -> int:
-    # TODO
+):
+
     cursor = db_connect.cursor()
-    fetched_row = cursor.fetchone()
-    # if fetched row has no data, return -1
+    query = "INSERT INTO orders (customer_id, order_date, total_amount, product_id, product_category, product_name) VALUES (%d, %s, %f, %d, %s, %s) RETURNING order_id;"
+    cursor.execute(query,(customer_id, date, total, prod_id, prod_category, prod_name))
+    fetched_row = cursor.fetchone() 
     if not fetched_row:
         return -1
-    
-    # else get the first element of the fetched row
+
     new_id = int(fetched_row[0])
+    db_connect.commit()
     cursor.close()
     return new_id
 
@@ -97,7 +101,6 @@ def add_delivery(order_id: int, date: str, status: str) -> int:
     new_id = int(fetched_row[0])
     cursor.close()
     return new_id
-
 
 # Update the delivery status for an existing delivery, given its delivery ID.
 def update_delivery(id: int, status: str) -> None:
