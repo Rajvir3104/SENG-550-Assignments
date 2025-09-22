@@ -38,7 +38,7 @@ def reset_tables(tables: list):
 def create_tables():
     # use sql file to create tables
     cursor = db_connect.cursor()
-    with open("createDB.sql", "r") as f:
+    with open("CreateDB.sql", "r") as f:
         cursor.execute(f.read())
     db_connect.commit()
     cursor.close()
@@ -50,7 +50,7 @@ def add_customer(name: str, email: str, phone: str, address: str) -> int:
     
 
     cursor = db_connect.cursor()
-    query = "INSERT INTO customers (name, email, phone, address) VALUES (%s, %s, %s, %s) RETURNING customer_id;"
+    query = f"INSERT INTO customers (name, email, phone, address) VALUES (%s, %s, %s, %s) RETURNING customer_id;"
     cursor.execute(query, (name,email,phone,address))
     fetched_row = cursor.fetchone()
     # if fetched row has no data, return -1
@@ -74,7 +74,7 @@ def add_order(
 ):
 
     cursor = db_connect.cursor()
-    query = "INSERT INTO orders (customer_id, order_date, total_amount, product_id, product_category, product_name) VALUES (%d, %s, %f, %d, %s, %s) RETURNING order_id;"
+    query = f"INSERT INTO orders (customer_id, order_date, total_amount, product_id, product_category, product_name) VALUES (%s, %s, %s, %s, %s, %s) RETURNING order_id;"
     cursor.execute(query,(customer_id, date, total, prod_id, prod_category, prod_name))
     fetched_row = cursor.fetchone() 
     if not fetched_row:
@@ -89,7 +89,7 @@ def add_order(
 # Add a new delivery with attributes such as order ID, delivery date, and status.
 def add_delivery(order_id: int, date: str, status: str) -> int:
     cursor = db_connect.cursor()
-    query = f"INSERT INTO deliveries (order_id, delivery_date, status) VALUES (%d, %s, %s) RETURNING delivery_id;"
+    query = f"INSERT INTO deliveries (order_id, delivery_date, status) VALUES (%s, %s, %s) RETURNING delivery_id;"
     print(query)
     cursor.execute(query, (order_id, date, status))
     fetched_row = cursor.fetchone()
