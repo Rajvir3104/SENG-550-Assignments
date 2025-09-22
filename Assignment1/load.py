@@ -171,8 +171,26 @@ def part3Code():
     # update delivery #3
     update_delivery(3, "Delivered")
 
+def part3_1Code():
+    print("Part 3.1 code running...")
+    # Add another customer
+    emma_id = add_customer(
+        "Emma Watson", "emma.watson@example.com", "555-7890", "222 Maple Avenue"
+    )
+    print(f"New customer ID: {emma_id}")
+
+    # Add another order
+    order_id = add_order(
+        emma_id, "2025-07-15", 250.00, 117, "Home Appliances", "Vacuum Cleaner"
+    )
+    print(f"New order ID: {order_id}")
+
+    # Add another delivery
+    delivery_id = add_delivery(order_id, "2025-07-17", "Pending")
+    print(f"New delivery ID: {delivery_id}")
+
 
 if __name__ == "__main__":
-    part3Code()
+    part3_1Code()
     db_connect.close()
     print("Database connection closed.")
