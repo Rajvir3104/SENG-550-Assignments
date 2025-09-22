@@ -86,21 +86,24 @@ def add_order(
     return new_id
 
 
-# Add a new delivery with attributes such as order ID, delivery date, and status.
+# Corrected version of the add_delivery function
 def add_delivery(order_id: int, date: str, status: str) -> int:
     cursor = db_connect.cursor()
+
     query = f"INSERT INTO deliveries (order_id, delivery_date, status) VALUES (%s, %s, %s) RETURNING delivery_id;"
     print(query)
+
     cursor.execute(query, (order_id, date, status))
+
     fetched_row = cursor.fetchone()
-    # if fetched row has no data, return -1
     if not fetched_row:
         return -1
 
-    # else get the first element of the fetched row
     new_id = int(fetched_row[0])
+    db_connect.commit()
     cursor.close()
     return new_id
+
 
 # Update the delivery status for an existing delivery, given its delivery ID.
 def update_delivery(id: int, status: str) -> None:
@@ -166,8 +169,6 @@ def part3Code():
     update_delivery(delivery_id, "Shipped")
     print("Delivery status updated.")
 
-    # TODO: Add one more customer, order, and delivery with any valid data...
-
     # update delivery #3
     update_delivery(3, "Delivered")
 
@@ -191,6 +192,6 @@ def part3_1Code():
 
 
 if __name__ == "__main__":
-    part3_1Code()
+    part3Code()
     db_connect.close()
     print("Database connection closed.")
