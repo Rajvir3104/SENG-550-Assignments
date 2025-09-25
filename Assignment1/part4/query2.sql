@@ -1,1 +1,1 @@
-SELECT COUNT(*) FROM orders
+SELECT COUNT(*) as Number_of_Orders FROM orders;

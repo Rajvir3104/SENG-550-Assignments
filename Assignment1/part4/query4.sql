@@ -1,2 +1,2 @@
 SELECT * FROM deliveries
-WHERE status = 'Delivered';
+WHERE status != 'Delivered';
