@@ -120,7 +120,7 @@ def update_delivery(id: int, status: str) -> None:
 
 def part2Code():
     # clear data first
-    reset_tables(["deliveries", "orders", "customers"])
+    reset_tables(["payments", "address", "deliveries", "orders", "customers"])
 
     # create tables
     create_tables()
@@ -192,6 +192,6 @@ def part3_1Code():
 
 
 if __name__ == "__main__":
-    part3Code()
+    part2Code()
     db_connect.close()
     print("Database connection closed.")

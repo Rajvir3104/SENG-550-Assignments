@@ -1,6 +1,6 @@
 -- Address table links with customers
 -- Customers table would have to be updated to include foreign key to address_id
-CREATE TABLE address(
+CREATE TABLE addresses(
     address_id SERIAL PRIMARY KEY,
     customer_id INT REFERENCES customers(customer_id),
     street TEXT,
