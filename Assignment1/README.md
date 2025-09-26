@@ -68,7 +68,7 @@ The part 3 code is split into 2 functions, `part3Code()` that holds operations 1
 
 ## Part 4
 
-All part 4 code is found in their individual .sql and .png files.
+All part 4 code is found in their individual `.sql` and `.png` files.
 
 ## Part 5
 
