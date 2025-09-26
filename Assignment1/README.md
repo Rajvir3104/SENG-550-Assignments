@@ -65,3 +65,19 @@ The Part 3 functions are found in `load.py`
 ### load.py
 
 The part 3 code is split into 2 functions, `part3Code()` that holds operations 1-4, and 6, and `part3_1Code()` which performs step 5. This includes adding a new customer, order, and delivery.
+
+## Part 4
+
+All part 4 code is found in their individual .sql and .png files.
+
+## Part 5
+
+Part 5 code, two new schemas are found in `Part5.sql`.
+
+### addresses
+
+This new table would change the existing customers table by adding a new foreign key referencing the "address_id" column in the new table.
+
+### payments
+
+This new table would change the existing orders table by adding a new foreing key referencing the "payment_id" column in the new table.
