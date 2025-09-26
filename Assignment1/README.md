@@ -2,6 +2,9 @@
 
 Code is separated by the different parts of the assignments.
 
+Aryan Karadia - 30140288
+Rajvir Bhatti - 30150118
+
 ## Load.py
 
 The load.py file is seperated into different functions for code reusability, and seperating the code for each part.
