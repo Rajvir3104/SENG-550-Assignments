@@ -1,2 +1,5 @@
 -- Find the product category with the highest total sales amount.
-SELECT orders.product_category, SUM(orders.total_amount) as total_sales_amount FROM orders GROUP BY orders.product_category ORDER BY total_sales_amount DESC LIMIT 1;
+SELECT orders.product_category, SUM(orders.total_amount) as total_sales_amount 
+FROM orders 
+GROUP BY orders.product_category 
+ORDER BY total_sales_amount DESC LIMIT 1;

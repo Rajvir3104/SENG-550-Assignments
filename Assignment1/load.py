@@ -29,7 +29,7 @@ def reset_tables(tables: list):
     cursor = db_connect.cursor()
     # drop tables if they exist
     for table in tables:
-        cursor.execute(f"DROP TABLE IF EXISTS {table};")
+        cursor.execute(f"DROP TABLE IF EXISTS {table} CASCADE;")
     db_connect.commit()
     cursor.close()
     print("Tables dropped.")
@@ -120,7 +120,7 @@ def update_delivery(id: int, status: str) -> None:
 
 def part2Code():
     # clear data first
-    reset_tables(["payments", "address", "deliveries", "orders", "customers"])
+    reset_tables(["payments", "addresses", "deliveries", "orders", "customers"])
 
     # create tables
     create_tables()
@@ -190,8 +190,22 @@ def part3_1Code():
     delivery_id = add_delivery(order_id, "2025-07-17", "Pending")
     print(f"New delivery ID: {delivery_id}")
 
+    # adding two new orders for harry potter books
+    azkaban_order_id = add_order(emma_id, "2025-09-25", 30.00, 201, "Books", "Harry Potter and the Prisoner of Azkaban")
+    print(f"New order ID: {azkaban_order_id}")
+    hogwarts_order_id = add_order(emma_id, "2025-09-26", 35.00, 202, "Books", "Harry Potter and the Goblet of Fire")
+    print(f"New order ID: {hogwarts_order_id}")
+
+    # add deliveries for the two new orders
+    azkaban_delivery_id = add_delivery(azkaban_order_id, "2025-09-28", "Pending")
+    print(f"New delivery ID: {azkaban_delivery_id}")
+
+    hogwarts_delivery_id = add_delivery(hogwarts_order_id, "2025-09-29", "Pending")
+    print(f"New delivery ID: {hogwarts_delivery_id}")
+
 
 if __name__ == "__main__":
-    part2Code()
+    part3Code()
+    part3_1Code()
     db_connect.close()
     print("Database connection closed.")
