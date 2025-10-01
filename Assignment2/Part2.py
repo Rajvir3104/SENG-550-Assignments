@@ -24,29 +24,22 @@ def create_tables():
 
 
 # add product
-def add_product(prod_id: int, prod_name: str, category: str, price, float):
+def add_product(product_id: int, name: str, category: str, price: float):
     cursor = db_connect.cursor()
-    query = f"INSERT INTO products (prod_id, prod_name, category,price) VALUES (%d, %s, %s, %f)"
-    cursor.execute(query, (prod_id, prod_name, category, price))
+    query = f"INSERT INTO dim_products (product_id, name, category, price) VALUES (%s, %s, %s, %s)"
+    cursor.execute(query, (product_id, name, category, price))
     db_connect.commit()
-    fetched_row = cursor.fetchone()
-    if not fetched_row:
-        return -1
-    new_id = int(fetched_row[0])
     cursor.close()
-    return new_id
+    return
 
-def add_customer(customer_id: int, name: str, email: str, city: str):
+
+def add_customer(customer_id: int, name: str, city: str, email: str | None = None):
     cursor = db_connect.cursor()
-    query = f"INSERT  INTO customers (customer_id, name, email, city) VALUES (%d, %s, %s, %s)"
+    query = f"INSERT INTO dim_customers (customer_id, name, email, city) VALUES (%s, %s, %s, %s)"
     cursor.execute(query, (customer_id, name, email, city))
     db_connect.commit()
-    fetched_row = cursor.fetchone()
-    if not fetched_row:
-        return -1
-    new_id = int(fetched_row[0])
     cursor.close()
-    return new_id
+    return
 
 
 # get customer info
@@ -73,7 +66,7 @@ def update_customer_city(customer_id: int, new_city: str) -> None:
     cursor.execute(update_old_row)
 
     # insert new row with new city
-    update_city_query = f"INSERT INTO dim_customers (customer_id, name, email, city) VALUES (%d, %s, %s, %s)"
+    update_city_query = f"INSERT INTO dim_customers (customer_id, name, email, city) VALUES (%s, %s, %s, %s)"
     cursor.execute(update_city_query, (customer_id, customer[0], customer[1], new_city))
 
     db_connect.commit()
@@ -103,7 +96,7 @@ def update_product_price(product_id: int, new_price: float) -> None:
     cursor.execute(update_old_product_query)
 
     # insert new row with new price
-    new_row_query = f"INSERT INTO dim_products (product_id, name, category, price) VALUES (%d, %s, %s, %d)"
+    new_row_query = f"INSERT INTO dim_products (product_id, name, category, price) VALUES (%s, %s, %s, %s)"
     cursor.execute(
         new_row_query, (product_id, product_info[0], product_info[1], new_price)
     )
