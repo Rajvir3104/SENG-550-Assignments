@@ -9,3 +9,27 @@ CREATE TABLE dim_customers (
     expiry_date TIMESTAMP,                  -- When this record expired (NULL if current)
     is_current BOOLEAN DEFAULT TRUE    -- Flag for current record
 )
+
+CREATE TABLE dim_products (
+    id SERIAL PRIMARY KEY,
+    product_id INT,
+    name TEXT,
+    category TEXT,
+    price REAL,
+-- type 2 tracking columns
+    effective_date TIMESTAMP NOT NULL,
+    expiry_date TIMESTAMP, 
+    is_current BOOLEAN DEFAULT TRUE
+)
+
+CREATE TABLE dim_orders (
+    id SERIAL PRIMARY KEY,
+    product_id INT REFERENCES dim_orders(order_id),
+    customer_id INT REFERENCES dim_customers(customer_id),
+    order_date DATE,
+    amount REAL,
+    -- type 2 tracking columns
+    effective_date TIMESTAMP NOT NULL,
+    expiry_date TIMESTAMP, 
+    is_current BOOLEAN DEFAULT TRUE
+)
