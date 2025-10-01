@@ -123,14 +123,26 @@ def add_order(customer_id: int, product_id: int, amount: float) -> int:
 
 
 def part2code():
+    print("Part 2 code running...")
     add_product(1, "Laptop", "Electronics", 1000)
     add_product(2, "Phone", "Electronics", 500)
     add_customer(1, name="Alice",city="New York")
     add_customer(2, name="Bob", city="Boston")
-    add_order(customer_id=1, prod_id=1, amount=1000)
-    
+    add_order(customer_id=1, product_id=1, amount=1000)
+    update_customer_city(1, "Chicago")
+    update_product_price(1, 900)
+    add_order(1, 1, 850)
+    update_customer_city(2, "Calgary")
+    add_order(2, 2, 500)
+    add_order(1, 1, 900)
+    update_customer_city(1, "San Francisco")
+    add_order(1, 2, 450)
+    add_order(2, 1, 900)
+    print("Part 2 code finished.")
 
 
 if __name__ == "__main__":
-    reset_tables(["dim_customers", "customers", "products", "fact_sales"])
+    reset_tables(["dim_customers", "dim_products", "fact_orders"])
     create_tables()
+
+    part2code()
