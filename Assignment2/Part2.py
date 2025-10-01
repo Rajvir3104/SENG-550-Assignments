@@ -112,6 +112,17 @@ def update_product_price(product_id: int, new_price: float) -> None:
     cursor.close()
     return
 
+def add_order(order_id: int, prod_id: int, customer_id: int, amount: float):
+    pass
+
+def part2code():
+    add_product(1, "Laptop", "Electronics", 1000)
+    add_product(2, "Phone", "Electronics", 500)
+    add_customer(1, name="Alice",city="New York")
+    add_customer(2, name="Bob", city="Boston")
+    add_order(customer_id=1, prod_id=1, amount=1000)
+    
+
 
 if __name__ == "__main__":
     reset_tables(["dim_customers", "customers", "products", "fact_sales"])
