@@ -105,8 +105,22 @@ def update_product_price(product_id: int, new_price: float) -> None:
     cursor.close()
     return
 
-def add_order(order_id: int, prod_id: int, customer_id: int, amount: float):
-    pass
+
+def add_order(customer_id: int, product_id: int, amount: float) -> int:
+    cursor = db_connect.cursor()
+    new_order_query = f"INSERT INTO fact_orders (product_id, customer_id, order_date, amount) VALUES (%s, %s, %s, %s) RETURNING id;"
+    cursor.execute(
+        new_order_query, (product_id, customer_id, datetime.now().astimezone(), amount)
+    )
+    fetched_row = cursor.fetchone()
+    if not fetched_row:
+        return -1
+    new_id = int(fetched_row[0])
+    db_connect.commit()
+    cursor.close()
+
+    return new_id
+
 
 def part2code():
     add_product(1, "Laptop", "Electronics", 1000)
