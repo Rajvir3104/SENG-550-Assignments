@@ -17,7 +17,7 @@ CREATE TABLE dim_products (
     category TEXT,
     price REAL,
 -- type 2 tracking columns
-    effective_date TIMESTAMP NOT NULL,
+    effective_date TIMESTAMP DEFAULT NOW(),
     expiry_date TIMESTAMP, 
     is_current BOOLEAN DEFAULT TRUE
 )
@@ -29,7 +29,7 @@ CREATE TABLE dim_orders (
     order_date DATE,
     amount REAL,
     -- type 2 tracking columns
-    effective_date TIMESTAMP NOT NULL,
+    effective_date TIMESTAMP DEFAULT NOW(),
     expiry_date TIMESTAMP, 
     is_current BOOLEAN DEFAULT TRUE
 )
