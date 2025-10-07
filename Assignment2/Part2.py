@@ -1,5 +1,6 @@
 import psycopg2
 from datetime import datetime
+from typing import Optional
 
 # Constants
 db_connect = psycopg2.connect(
@@ -33,7 +34,7 @@ def add_product(product_id: int, name: str, category: str, price: float):
     return
 
 
-def add_customer(customer_id: int, name: str, city: str, email: str = None):
+def add_customer(customer_id: int, name: str, city: str, email: Optional[str] = None):
     cursor = db_connect.cursor()
     query = f"INSERT INTO dim_customers (customer_id, name, email, city, expiry_date) VALUES (%s, %s, %s, %s, %s)"
     cursor.execute(query, (customer_id, name, email, city, "9999-12-01 23:59:59+00"))
