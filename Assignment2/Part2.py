@@ -26,8 +26,8 @@ def create_tables():
 # add product
 def add_product(product_id: int, name: str, category: str, price: float):
     cursor = db_connect.cursor()
-    query = f"INSERT INTO dim_products (product_id, name, category, price) VALUES (%s, %s, %s, %s)"
-    cursor.execute(query, (product_id, name, category, price))
+    query = f"INSERT INTO dim_products (product_id, name, category, price, expiry_date) VALUES (%s, %s, %s, %s, %s)"
+    cursor.execute(query, (product_id, name, category, price, "9999-12-01 23:59:59+00"))
     db_connect.commit()
     cursor.close()
     return
@@ -35,8 +35,8 @@ def add_product(product_id: int, name: str, category: str, price: float):
 
 def add_customer(customer_id: int, name: str, city: str, email: str | None = None):
     cursor = db_connect.cursor()
-    query = f"INSERT INTO dim_customers (customer_id, name, email, city) VALUES (%s, %s, %s, %s)"
-    cursor.execute(query, (customer_id, name, email, city))
+    query = f"INSERT INTO dim_customers (customer_id, name, email, city, expiry_date) VALUES (%s, %s, %s, %s, %s)"
+    cursor.execute(query, (customer_id, name, email, city, "9999-12-01 23:59:59+00"))
     db_connect.commit()
     cursor.close()
     return
@@ -66,8 +66,7 @@ def update_customer_city(customer_id: int, new_city: str) -> None:
     cursor.execute(update_old_row)
 
     # insert new row with new city
-    update_city_query = f"INSERT INTO dim_customers (customer_id, name, email, city) VALUES (%s, %s, %s, %s)"
-    cursor.execute(update_city_query, (customer_id, customer[0], customer[1], new_city))
+    add_customer(customer_id, customer[0], new_city, customer[1])
 
     db_connect.commit()
     cursor.close()
@@ -96,10 +95,7 @@ def update_product_price(product_id: int, new_price: float) -> None:
     cursor.execute(update_old_product_query)
 
     # insert new row with new price
-    new_row_query = f"INSERT INTO dim_products (product_id, name, category, price) VALUES (%s, %s, %s, %s)"
-    cursor.execute(
-        new_row_query, (product_id, product_info[0], product_info[1], new_price)
-    )
+    add_product(product_id, product_info[0], product_info[1], new_price)
 
     db_connect.commit()
     cursor.close()

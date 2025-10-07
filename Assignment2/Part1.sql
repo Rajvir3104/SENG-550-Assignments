@@ -26,6 +26,6 @@ CREATE TABLE fact_orders (
     id SERIAL PRIMARY KEY,
     product_id INT NOT NULL,
     customer_id INT NOT NULL,
-    order_date DATE DEFAULT CURRENT_DATE,
+    order_date TIMESTAMP DEFAULT NOW(),
     amount REAL NOT NULL
 );
