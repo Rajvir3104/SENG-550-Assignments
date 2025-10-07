@@ -33,7 +33,7 @@ def add_product(product_id: int, name: str, category: str, price: float):
     return
 
 
-def add_customer(customer_id: int, name: str, city: str, email: str | None = None):
+def add_customer(customer_id: int, name: str, city: str, email: str = None):
     cursor = db_connect.cursor()
     query = f"INSERT INTO dim_customers (customer_id, name, email, city, expiry_date) VALUES (%s, %s, %s, %s, %s)"
     cursor.execute(query, (customer_id, name, email, city, "9999-12-01 23:59:59+00"))
@@ -138,7 +138,7 @@ def part2code():
 
 
 if __name__ == "__main__":
-    reset_tables(["dim_customers", "dim_products", "fact_orders"])
-    create_tables()
+    # reset_tables(["dim_customers", "dim_products", "fact_orders"])
+    # create_tables()
 
     part2code()
