@@ -105,7 +105,7 @@ def update_product_price(product_id: int, new_price: float) -> None:
 
 def add_order(customer_id: int, product_id: int, amount: float) -> int:
     cursor = db_connect.cursor()
-    new_order_query = f"INSERT INTO fact_orders (product_id, customer_id, order_date, amount) VALUES (%s, %s, %s, %s) RETURNING id;"
+    new_order_query = f"INSERT INTO fact_orders (product_id, customer_id, order_date, amount) VALUES (%s, %s, %s, %s) RETURNING order_id;"
     cursor.execute(
         new_order_query, (product_id, customer_id, datetime.now().astimezone(), amount)
     )
@@ -139,7 +139,7 @@ def part2code():
 
 
 if __name__ == "__main__":
-    # reset_tables(["dim_customers", "dim_products", "fact_orders"])
-    # create_tables()
+    reset_tables(["dim_customers", "dim_products", "fact_orders"])
+    create_tables()
 
     part2code()

@@ -23,7 +23,7 @@ CREATE TABLE dim_products (
 );
 
 CREATE TABLE fact_orders (
-    id SERIAL PRIMARY KEY,
+    order_id SERIAL PRIMARY KEY,
     product_id INT NOT NULL,
     customer_id INT NOT NULL,
     order_date TIMESTAMP DEFAULT NOW(),
