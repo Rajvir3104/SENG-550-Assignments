@@ -26,13 +26,3 @@
    This makes them less suitable for use cases requiring instant updates, since computed results may lag behind live transactional data.
 
 ---
-
-<!-- ### 🧠 Summary Table
-
-| Aspect                        | Advantage or Disadvantage | Explanation |
-|-------------------------------|---------------------------|--------------|
-| Analysis queries read performance | ✅ Advantage | Faster analytical queries directly in MongoDB |
-| Scalability for reads          | ✅ Advantage | Scales horizontally with sharding |
-| Data redundancy and integrity  | ❌ Disadvantage | Risk of inconsistent duplicated data |
-| Development effort             | ❌ Disadvantage | Complex to design, test, and maintain |
-| Data latency                   | ❌ Disadvantage | Aggregation adds delay, reducing real-time freshness | -->

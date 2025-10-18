@@ -39,7 +39,7 @@ print("Order ID, Product Name, Total Difference:")
 results = list(returned)
 for doc in results:
     print(doc)
-print("Total difference between price and amount:")
+    
 results = list(returned)
 for doc in results:
     print(doc)
