@@ -1,6 +1,13 @@
 import os
 import redis
 
+
+
+# Force PySpark to use Homebrew Java 17
+os.environ["JAVA_HOME"] = "/opt/homebrew/opt/openjdk@17"
+os.environ["PATH"] = os.path.join(os.environ["JAVA_HOME"], "bin") + os.pathsep + os.environ.get("PATH", "")
+
+
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, sum as f_sum, expr, coalesce, lit
 

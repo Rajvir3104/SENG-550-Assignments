@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 
-# Adjust to your actual project path
-PROJECT_DIR = "/Users/rajvir/Desktop/School/Year3/Year4/SENG-550-Assignments/Assignment3"
+# Project dir where part2 lives
+PROJECT_DIR = "/Users/rajvir/Desktop/School/Year3/Year4/SENG-550-Assignments/Assignment3/part2"
 
 default_args = {
     "owner": "airflow",
@@ -24,7 +24,8 @@ with DAG(
         task_id="run_incremental_spark",
         bash_command=(
             f"cd {PROJECT_DIR} && "
-            "source venv/bin/activate && "
-            "python processing/incremental/incremental_spark.py"
+            # venv is three levels up from part2/incremental
+            "source ../../venv/bin/activate && "
+            "python incremental/incremental_spark.py"
         ),
     )
