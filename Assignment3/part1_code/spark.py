@@ -62,9 +62,9 @@ agg = (
     .groupBy("day_of_week", "hour_of_day", "category")
     .agg(f_sum("items").alias("items_count"))
 )
+agg.printSchema()
+agg.show(10, truncate=False)
 
-# (Optional) peek at the result
-# agg.show(20, truncate=False)
 
 # 8. Write result to processed path
 (
