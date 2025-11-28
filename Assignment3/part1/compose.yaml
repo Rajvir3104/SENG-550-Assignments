@@ -1,0 +1,14 @@
+# compose.yaml — Apache Spark 4.0.1
+services:
+  spark:
+    image: spark:python3-java17
+    container_name: spark-part1
+    user: root
+    volumes:
+      # Mount project root so relative paths in spark.py work:
+      #   SCRIPT_DIR = /opt/spark/work-dir/processing/full
+      #   DATA_DIR = /opt/spark/work-dir/data
+      - ./:/opt/spark/work-dir
+    working_dir: /opt/spark/work-dir/processing/full
+    command: >
+      /opt/spark/bin/spark-submit --master local[*] spark.py
