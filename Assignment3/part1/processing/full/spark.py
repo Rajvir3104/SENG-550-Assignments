@@ -39,13 +39,13 @@ try:
         .withColumn("hour_of_day", col("order_hour_of_day").cast("int"))
     )
 
-    # 3. Identify category columns (non-base, non-time)
+    # 3. Identify category columns not base or time columns
     base_cols = {"order_id", "order_dow", "order_hour_of_day", "days_since_prior_order"}
     category_cols = [
         c for c in df_base.columns
         if c not in base_cols and c not in {"day_of_week", "hour_of_day"}
     ]
-    print(f"🔍 Identified {len(category_cols)} category columns.")
+    print(f"Found {len(category_cols)} category columns.")
 
     # 4. Cast categories to int, replace null with 0
     df_int = df_base.select(
@@ -57,7 +57,7 @@ try:
         ]
     )
 
-    # 5. Unpivot wide → long using stack (efficient native operation)
+    # 5. Reshape from wide to long format using stack
     if not category_cols:
         raise ValueError("No category columns found — check input schema.")
     

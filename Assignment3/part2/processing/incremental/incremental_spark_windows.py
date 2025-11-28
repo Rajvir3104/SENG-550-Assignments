@@ -1,21 +1,14 @@
 import os
 import redis
 
-
-
-# Force PySpark to use Homebrew Java 17
-os.environ["JAVA_HOME"] = "/opt/homebrew/opt/openjdk@17"
-os.environ["PATH"] = os.path.join(os.environ["JAVA_HOME"], "bin") + os.pathsep + os.environ.get("PATH", "")
-
-
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, sum as f_sum, expr, coalesce, lit
 
 # ---------- CONFIG ----------
-RAW_BASE = "../data/incremental/raw"
-PROCESSED_PATH = "../data/incremental/processed/orders.csv"
+RAW_BASE = "../../data/incremental/raw"
+PROCESSED_PATH = "../../data/incremental/processed/orders.csv"
 REDIS_KEY = "orders_last_processed_day"
-REDIS_HOST = "localhost"
+REDIS_HOST = "host.docker.internal"
 REDIS_PORT = 6379
 # ----------------------------
 

@@ -1,0 +1,18 @@
+services:
+    spark:
+        image: spark:python3-java17
+        container_name: spark-incremental
+        user: root
+        volumes:
+            - ./:/opt/spark/work-dir
+        working_dir: /opt/spark/work-dir/processing/incremental
+        # Fix permissions, then run as 'spark' user
+        command: >
+            bash -c "
+              chown -R spark:spark /opt/spark/work-dir &&
+              chmod -R u+w /opt/spark/work-dir &&
+              # Install redis-py (not in base image)
+              pip install --no-cache-dir redis &&
+              # Run the job
+              su spark -c '/opt/spark/bin/spark-submit --master local[*] incremental_spark_windows.py'
+            "
