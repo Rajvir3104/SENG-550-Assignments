@@ -55,5 +55,18 @@ test_results = lr_model.evaluate(test_data)
 print(f"RMSE on test data: {test_results.rootMeanSquaredError}")
 print(f"R2 on test data: {test_results.r2}")
 
+# Create models directory if it doesn't exist
+os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
+
+# Save the trained model
+print(f"Saving model to: {MODEL_PATH}")
+# override if the model path already exists
+if os.path.exists(MODEL_PATH):
+    import shutil
+    shutil.rmtree(MODEL_PATH)
+
+lr_model.save(MODEL_PATH)
+print("Model saved successfully!")
+
 # Stop Spark session
 spark.stop()
