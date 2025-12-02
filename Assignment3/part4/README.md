@@ -7,10 +7,10 @@
 1. **Dramatically Faster Response Times**
    - Redis lookup: ~1ms
    - Model inference: ~100-500ms+ per prediction
-   - **100-500x faster** for cached predictions
+   - 100-500x faster for cached predictions
 
 2. **Higher Throughput**
-   - Can handle **thousands of requests per second**
+   - Can handle thousands of requests per second
    - Model inference might handle 10-100 requests/second
    - Redis can handle 100,000+ operations/second
 
