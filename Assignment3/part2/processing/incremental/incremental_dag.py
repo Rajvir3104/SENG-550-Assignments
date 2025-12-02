@@ -16,7 +16,7 @@ with DAG(
     dag_id="incremental_orders_aggregation",
     default_args=default_args,
     start_date=datetime(2025, 1, 1),
-    schedule_interval=timedelta(seconds=4),  # every 4 seconds
+    schedule_interval=timedelta(seconds=4),
     catchup=False,
 ) as dag:
 
@@ -24,8 +24,7 @@ with DAG(
         task_id="run_incremental_spark",
         bash_command=(
             f"cd {PROJECT_DIR} && "
-            # venv is three levels up from part2/incremental
             "source ../../venv/bin/activate && "
-            "python incremental/incremental_spark.py"
+            "python processing/incremental/incremental_spark.py"
         ),
     )

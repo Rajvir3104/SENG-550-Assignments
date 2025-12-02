@@ -1,7 +1,7 @@
 **Write a short comparative analysis of the below. 2-3 paragraphs is sufficient.
-● Apache Spark
-● Spark on Databricks
-● AWS Glue**
+- Apache Spark
+- Spark on Databricks
+- AWS Glue
 
 Apache Spark is a computing framework used for large scale data processing. It allows for quick, in memory computations and fast stream processing. Spark Databricks is built ontop of Apache Spark, providing an optimized and enhanced environment for running Spark workloads. Databricks optimizes performance by using a vectorized execution engine, and optimizations for running on cloud hardware. Databricks is Apaches solution to the large overhead required for setting of Spark workflows efficiently. Databricks provides a single platform for data science, engineering, and business. Databricks provides the Spark clusters on the cloud, with multiple service providers like AWS, Azure, or Google Cloud. This simplifies deployment and infrastructure management compared to Spark. Furthermore, Databricks provides a web based collaborative workspace with notebooks, dashboards, etc. This allows multple users within a company like data scientists, analyst, and engineers to work together easily.
 
